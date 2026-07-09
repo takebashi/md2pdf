@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Markdown PDF System</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <div>
+          <h1>Markdown PDF System</h1>
+          <p>Markdown to designed PDF</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <label class="file-button" title="Open Markdown file">
+          <input id="fileInput" type="file" accept=".md,.markdown,text/markdown,text/plain">
+          <span aria-hidden="true">Open</span>
+        </label>
+        <button id="sampleButton" type="button" title="Load sample">Sample</button>
+        <button id="printButton" type="button" class="primary" title="Print or save as PDF">PDF</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="editor-pane" aria-label="Markdown editor">
+        <div class="pane-toolbar">
+          <label for="markdownInput">Markdown</label>
+          <div class="control-row">
+            <label for="themeSelect">Theme</label>
+            <select id="themeSelect">
+              <option value="business">Business</option>
+              <option value="editorial">Editorial</option>
+              <option value="mono">Mono</option>
+            </select>
+          </div>
+        </div>
+        <textarea id="markdownInput" spellcheck="false"></textarea>
+      </section>
+
+      <section class="preview-pane" aria-label="PDF preview">
+        <div class="pane-toolbar">
+          <span id="documentTitle">Preview</span>
+          <div class="control-row">
+            <label for="densitySelect">Density</label>
+            <select id="densitySelect">
+              <option value="comfortable">Comfortable</option>
+              <option value="compact">Compact</option>
+            </select>
+          </div>
+        </div>
+        <div class="paper-scroll">
+          <article id="preview" class="paper theme-business density-comfortable"></article>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

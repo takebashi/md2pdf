@@ -497,6 +497,7 @@ textarea::placeholder {
   color: var(--citrus-text);
   background: var(--citrus-bg);
   border-top: 0;
+  counter-reset: citrus-section;
 }
 
 .doc-cover {
@@ -1324,8 +1325,8 @@ textarea::placeholder {
 .theme-citrus-punch .doc-cover {
   position: relative;
   overflow: hidden;
-  margin: 0 0 32px;
-  padding: 34px 36px 30px;
+  margin: 0 0 26px;
+  padding: 30px 34px 26px;
   border: 1px solid var(--citrus-divider);
   border-left: 8px solid var(--citrus-primary);
   border-radius: var(--citrus-radius);
@@ -1383,14 +1384,33 @@ textarea::placeholder {
 
 .theme-citrus-punch h2 {
   position: relative;
-  margin: 30px 0 14px;
-  padding: 0 0 9px;
+  counter-increment: citrus-section;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 25px 0 12px;
+  padding: 0 0 8px;
   border-bottom: 3px solid var(--citrus-surface);
-  color: var(--citrus-primary-dark);
+  color: var(--citrus-text);
   font-size: 22px;
   line-height: 1.35;
   font-weight: 800;
   break-after: avoid;
+}
+
+.theme-citrus-punch h2::before {
+  content: counter(citrus-section);
+  display: inline-grid;
+  flex: 0 0 32px;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: var(--citrus-primary);
+  color: #FFFFFF;
+  font-size: 17px;
+  line-height: 1;
+  font-weight: 800;
 }
 
 .theme-citrus-punch h2::after {
@@ -1405,7 +1425,7 @@ textarea::placeholder {
 
 .theme-citrus-punch h3 {
   position: relative;
-  margin: 22px 0 10px;
+  margin: 19px 0 9px;
   padding-left: 13px;
   color: var(--citrus-text);
   font-size: 17px;
@@ -1435,8 +1455,10 @@ textarea::placeholder {
 }
 
 .theme-citrus-punch p {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: var(--citrus-text);
+  orphans: 3;
+  widows: 3;
 }
 
 .theme-citrus-punch strong {
@@ -1544,8 +1566,392 @@ textarea::placeholder {
 }
 
 .theme-citrus-punch li {
-  margin: 6px 0;
+  margin: 5px 0;
   padding-left: 1px;
+  orphans: 3;
+  widows: 3;
+}
+
+.theme-citrus-punch table.citrus-kpi-grid {
+  display: block;
+  overflow: visible;
+  margin: 12px 0 18px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.theme-citrus-punch .citrus-kpi-grid thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.theme-citrus-punch .citrus-kpi-grid tbody {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.theme-citrus-punch .citrus-kpi-grid .citrus-kpi-card {
+  --citrus-card-accent: var(--citrus-primary);
+  --citrus-card-text: var(--citrus-primary-dark);
+  display: flex;
+  min-width: 0;
+  min-height: 116px;
+  flex-direction: column;
+  margin: 0;
+  padding: 12px 12px 11px;
+  border: 1px solid var(--citrus-divider);
+  border-top: 5px solid var(--citrus-card-accent);
+  border-radius: var(--citrus-radius);
+  background: #FFFFFF;
+  break-inside: avoid;
+}
+
+.theme-citrus-punch .citrus-kpi-grid .citrus-tone-2 {
+  --citrus-card-accent: var(--citrus-secondary);
+  --citrus-card-text: #786000;
+  background: #FFFDF4;
+}
+
+.theme-citrus-punch .citrus-kpi-grid .citrus-tone-3 {
+  --citrus-card-accent: var(--citrus-support);
+  --citrus-card-text: #0F782F;
+}
+
+.theme-citrus-punch .citrus-kpi-grid .citrus-tone-4 {
+  --citrus-card-accent: var(--citrus-emphasis);
+  --citrus-card-text: #B62A22;
+}
+
+.theme-citrus-punch .citrus-kpi-grid td {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--citrus-text-sub);
+  overflow-wrap: anywhere;
+}
+
+.theme-citrus-punch .citrus-kpi-grid td:first-child {
+  border-left: 0;
+}
+
+.theme-citrus-punch .citrus-kpi-grid .citrus-kpi-label {
+  order: 1;
+  color: var(--citrus-text);
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 800;
+}
+
+.theme-citrus-punch .citrus-kpi-grid .citrus-kpi-value {
+  order: 2;
+  margin-top: 7px;
+  color: var(--citrus-card-text);
+  font-size: 24px;
+  line-height: 1.15;
+  font-weight: 800;
+  text-align: left;
+  white-space: normal;
+}
+
+.theme-citrus-punch .citrus-kpi-grid .citrus-kpi-delta {
+  order: 3;
+  margin-top: 5px;
+  color: var(--citrus-card-text);
+  font-size: 11px;
+  line-height: 1.3;
+  font-weight: 800;
+  text-align: left;
+  white-space: normal;
+}
+
+.theme-citrus-punch .citrus-kpi-grid .citrus-kpi-delta::before {
+  content: attr(data-label) " ";
+  color: var(--citrus-text-sub);
+  font-weight: 700;
+}
+
+.theme-citrus-punch .citrus-kpi-grid .citrus-kpi-note {
+  order: 4;
+  margin-top: auto;
+  padding-top: 6px;
+  color: var(--citrus-text-sub);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.theme-citrus-punch ol.citrus-process-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 22px;
+  margin: 12px 0 17px;
+  padding: 0;
+  list-style: none;
+  counter-reset: citrus-process;
+}
+
+.theme-citrus-punch .citrus-process-flow > li {
+  counter-increment: citrus-process;
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 84px;
+  flex: 1 1 0;
+  align-items: flex-start;
+  margin: 0;
+  padding: 35px 10px 10px;
+  border: 1px solid var(--citrus-divider);
+  border-top: 4px solid var(--citrus-secondary);
+  border-radius: var(--citrus-radius);
+  background: #FFFEF8;
+  color: var(--citrus-text);
+  font-size: 11px;
+  line-height: 1.45;
+  font-weight: 700;
+  break-inside: avoid;
+}
+
+.theme-citrus-punch .citrus-process-flow > li::before {
+  content: counter(citrus-process, decimal-leading-zero);
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  color: var(--citrus-primary);
+  font-size: 17px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.theme-citrus-punch .citrus-process-flow > li::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  right: -17px;
+  top: 35px;
+  width: 10px;
+  height: 10px;
+  border-top: 3px solid var(--citrus-support);
+  border-right: 3px solid var(--citrus-support);
+  transform: rotate(45deg);
+}
+
+.theme-citrus-punch .citrus-process-flow > li:last-child {
+  border-top-color: var(--citrus-emphasis);
+}
+
+.theme-citrus-punch .citrus-process-flow > li:last-child::after {
+  content: none;
+}
+
+.theme-citrus-punch .citrus-category-grid,
+.theme-citrus-punch .citrus-feature-grid {
+  display: grid;
+  margin: 11px 0 17px;
+  padding: 0;
+  list-style: none;
+}
+
+.theme-citrus-punch .citrus-category-grid {
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+.theme-citrus-punch .citrus-feature-grid {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 9px;
+}
+
+.theme-citrus-punch .citrus-category-card,
+.theme-citrus-punch .citrus-feature-card {
+  --citrus-card-accent: var(--citrus-primary);
+  --citrus-card-text: var(--citrus-primary-dark);
+  min-width: 0;
+  margin: 0;
+  border: 1px solid var(--citrus-divider);
+  border-top: 4px solid var(--citrus-card-accent);
+  border-radius: var(--citrus-radius);
+  background: #FFFFFF;
+  color: var(--citrus-text-sub);
+  font-size: 10.5px;
+  line-height: 1.5;
+  break-inside: avoid;
+}
+
+.theme-citrus-punch .citrus-category-card {
+  min-height: 82px;
+  padding: 11px;
+}
+
+.theme-citrus-punch .citrus-feature-card {
+  min-height: 94px;
+  padding: 12px;
+  background: #FFFEFA;
+}
+
+.theme-citrus-punch .citrus-category-card.citrus-tone-2,
+.theme-citrus-punch .citrus-feature-card.citrus-tone-2 {
+  --citrus-card-accent: var(--citrus-support);
+  --citrus-card-text: #0F782F;
+}
+
+.theme-citrus-punch .citrus-category-card.citrus-tone-3,
+.theme-citrus-punch .citrus-feature-card.citrus-tone-3 {
+  --citrus-card-accent: var(--citrus-secondary);
+  --citrus-card-text: #786000;
+  background: #FFFDF4;
+}
+
+.theme-citrus-punch .citrus-category-card.citrus-tone-4,
+.theme-citrus-punch .citrus-feature-card.citrus-tone-4 {
+  --citrus-card-accent: var(--citrus-emphasis);
+  --citrus-card-text: #B62A22;
+}
+
+.theme-citrus-punch .citrus-card-title {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--citrus-card-text);
+  font-size: 12.5px;
+  line-height: 1.35;
+  font-weight: 800;
+}
+
+.theme-citrus-punch .citrus-card-description {
+  display: block;
+}
+
+.theme-citrus-punch table.citrus-initiative-list {
+  display: block;
+  overflow: visible;
+  margin: 11px 0 17px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.theme-citrus-punch .citrus-initiative-list thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.theme-citrus-punch .citrus-initiative-list tbody {
+  display: grid;
+  gap: 7px;
+}
+
+.theme-citrus-punch .citrus-initiative-list .citrus-initiative-card {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.9fr) minmax(0, 2fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--citrus-divider);
+  border-left: 4px solid var(--citrus-support);
+  border-radius: var(--citrus-radius);
+  background: #FFFFFF;
+  break-inside: avoid;
+}
+
+.theme-citrus-punch .citrus-initiative-list td {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--citrus-text-sub);
+  font-size: 10.5px;
+  line-height: 1.45;
+}
+
+.theme-citrus-punch .citrus-initiative-list td:first-child {
+  border-left: 0;
+}
+
+.theme-citrus-punch .citrus-initiative-list .citrus-initiative-name {
+  color: var(--citrus-text);
+  font-size: 11.5px;
+  font-weight: 800;
+}
+
+.theme-citrus-punch .citrus-initiative-list .citrus-initiative-status {
+  min-width: 62px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  color: #FFFFFF;
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 800;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.theme-citrus-punch .citrus-initiative-list .citrus-status-progress {
+  background: var(--citrus-emphasis);
+}
+
+.theme-citrus-punch .citrus-initiative-list .citrus-status-active {
+  background: var(--citrus-support);
+}
+
+.theme-citrus-punch .citrus-initiative-list .citrus-status-strengthen {
+  background: var(--citrus-secondary);
+  color: var(--citrus-text);
+}
+
+.theme-citrus-punch .citrus-initiative-list .citrus-status-preparing {
+  background: var(--citrus-primary);
+}
+
+.theme-citrus-punch .citrus-initiative-list .citrus-status-default {
+  background: var(--citrus-surface);
+  color: var(--citrus-text);
+}
+
+.theme-citrus-punch .doc-cover.citrus-has-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(170px, 0.65fr);
+  grid-template-rows: auto auto 1fr;
+  column-gap: 24px;
+  align-items: center;
+}
+
+.theme-citrus-punch .citrus-has-hero > h1,
+.theme-citrus-punch .citrus-has-hero > p,
+.theme-citrus-punch .citrus-has-hero > .doc-meta {
+  grid-column: 1;
+}
+
+.theme-citrus-punch .citrus-hero-figure {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  align-self: stretch;
+  margin: 0;
+  break-inside: avoid;
+}
+
+.theme-citrus-punch .citrus-hero-figure img {
+  width: 100%;
+  height: 100%;
+  max-height: 168px;
+  border: 0;
+  border-radius: var(--citrus-radius);
+  background: var(--citrus-surface);
+  object-fit: cover;
+}
+
+.theme-citrus-punch .citrus-hero-figure figcaption {
+  margin-top: 4px;
+  text-align: right;
 }
 
 .theme-citrus-punch ul li::marker,
@@ -1798,6 +2204,62 @@ textarea::placeholder {
   .theme-citrus-punch .doc-cover p {
     max-width: none;
   }
+
+  .theme-citrus-punch .citrus-kpi-grid tbody {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .theme-citrus-punch .citrus-category-grid,
+  .theme-citrus-punch .citrus-feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .theme-citrus-punch .citrus-initiative-list .citrus-initiative-card {
+    grid-template-columns: 1fr auto;
+  }
+
+  .theme-citrus-punch .citrus-initiative-content {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .theme-citrus-punch .doc-cover.citrus-has-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .theme-citrus-punch .citrus-hero-figure {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 14px;
+  }
+
+  .theme-citrus-punch .citrus-hero-figure img {
+    max-height: 190px;
+  }
+
+  .theme-citrus-punch ol.citrus-process-flow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .theme-citrus-punch .citrus-process-flow > li {
+    min-height: 0;
+    padding: 12px 12px 12px 48px;
+  }
+
+  .theme-citrus-punch .citrus-process-flow > li::before {
+    left: 12px;
+    top: 12px;
+  }
+
+  .theme-citrus-punch .citrus-process-flow > li::after {
+    left: 22px;
+    right: auto;
+    top: auto;
+    bottom: -7px;
+    transform: rotate(135deg);
+  }
 }
 
 @page {
@@ -1871,7 +2333,108 @@ textarea::placeholder {
   }
 
   .theme-citrus-punch .doc-cover {
-    margin: 0 0 10mm;
+    margin: 0 0 7mm;
+    padding: 20px 28px 18px;
+  }
+
+  .theme-citrus-punch h2 {
+    margin: 16px 0 8px;
+  }
+
+  .theme-citrus-punch h3 {
+    margin: 16px 0 8px;
+  }
+
+  .theme-citrus-punch p {
+    margin-bottom: 8px;
+  }
+
+  .theme-citrus-punch th,
+  .theme-citrus-punch td {
+    padding: 7px 10px;
+  }
+
+  .theme-citrus-punch .citrus-kpi-grid tbody {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .theme-citrus-punch ol.citrus-process-flow {
+    display: flex;
+    gap: 10px;
+  }
+
+  .theme-citrus-punch .citrus-process-flow > li {
+    min-height: 68px;
+    padding: 31px 8px 8px;
+  }
+
+  .theme-citrus-punch .citrus-process-flow > li::before {
+    left: 8px;
+    top: 8px;
+  }
+
+  .theme-citrus-punch .citrus-process-flow > li::after {
+    left: auto;
+    right: -8px;
+    top: 33px;
+    bottom: auto;
+    transform: rotate(45deg);
+  }
+
+  .theme-citrus-punch .citrus-category-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .theme-citrus-punch .citrus-feature-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .theme-citrus-punch .citrus-category-card {
+    min-height: 62px;
+    padding: 8px;
+  }
+
+  .theme-citrus-punch .citrus-feature-card {
+    min-height: 68px;
+    padding: 9px;
+  }
+
+  .theme-citrus-punch .citrus-initiative-list .citrus-initiative-card {
+    grid-template-columns: minmax(120px, 0.9fr) minmax(0, 2fr) auto;
+    padding: 6px 10px;
+  }
+
+  .theme-citrus-punch .citrus-initiative-content {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .theme-citrus-punch blockquote.callout {
+    margin: 10px 0 12px;
+    padding: 24px 16px 11px 18px;
+  }
+
+  .theme-citrus-punch hr {
+    margin: 9px 0;
+  }
+
+  .theme-citrus-punch .doc-footer {
+    margin-top: 12px;
+    padding-top: 8px;
+  }
+
+  .theme-citrus-punch .citrus-kpi-grid .citrus-kpi-card,
+  .theme-citrus-punch .citrus-process-flow > li,
+  .theme-citrus-punch .citrus-category-card,
+  .theme-citrus-punch .citrus-feature-card,
+  .theme-citrus-punch .citrus-initiative-card,
+  .theme-citrus-punch .citrus-hero-figure {
+    break-inside: avoid;
+  }
+
+  .theme-citrus-punch .citrus-kpi-grid .citrus-kpi-card {
+    min-height: 108px;
+    padding: 10px;
   }
 
   .doc-footer {

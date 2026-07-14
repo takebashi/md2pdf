@@ -469,6 +469,175 @@ function renderBlocks(meta, blocks) {
   elements.preview.innerHTML = body.join("\n");
 }
 
+function nearestHeadingText(element) {
+  let sibling = element.previousElementSibling;
+  while (sibling) {
+    if (/^H[1-4]$/.test(sibling.tagName)) {
+      return sibling.textContent.trim();
+    }
+    sibling = sibling.previousElementSibling;
+  }
+  return "";
+}
+
+function decorateCitrusHeadings(root) {
+  root.querySelectorAll("h2").forEach((heading) => {
+    heading.classList.add("citrus-section-heading");
+  });
+}
+
+function decorateCitrusKpiTables(root) {
+  const headingPattern = /(KPI|主要指標|主要数値|主要実績)/i;
+  root.querySelectorAll("table").forEach((table) => {
+    if (!headingPattern.test(nearestHeadingText(table))) return;
+
+    const headers = [...table.querySelectorAll("thead th")].map((cell) => cell.textContent.trim());
+    const rows = [...table.querySelectorAll("tbody tr")];
+    if (headers.length < 2 || headers.length > 4 || rows.length < 2 || rows.length > 6) return;
+
+    const metricIndex = headers.findIndex((header) => /(指標|項目|KPI|名称)/i.test(header));
+    const valueIndex = headers.findIndex((header) => /(実績|数値|値|結果)/i.test(header));
+    if (metricIndex < 0 || valueIndex < 0) return;
+
+    const deltaIndex = headers.findIndex((header) => /(前年比|前期比|増減|比較)/i.test(header));
+    const noteIndex = headers.findIndex((header) => /(注記|補足|内容|ポイント)/i.test(header));
+    table.classList.add("citrus-kpi-grid");
+
+    rows.forEach((row, rowIndex) => {
+      row.classList.add("citrus-kpi-card", `citrus-tone-${(rowIndex % 4) + 1}`);
+      [...row.cells].forEach((cell, cellIndex) => {
+        cell.dataset.label = headers[cellIndex] || "";
+        if (cellIndex === metricIndex) cell.classList.add("citrus-kpi-label");
+        if (cellIndex === valueIndex) cell.classList.add("citrus-kpi-value");
+        if (cellIndex === deltaIndex) cell.classList.add("citrus-kpi-delta");
+        if (cellIndex === noteIndex) cell.classList.add("citrus-kpi-note");
+      });
+    });
+  });
+}
+
+function decorateCitrusProcessLists(root) {
+  const headingPattern = /(業務フロー|事業フロー|提供フロー|サービスフロー|処理フロー)/;
+  root.querySelectorAll("h2, h3, h4").forEach((heading) => {
+    if (!headingPattern.test(heading.textContent.trim())) return;
+    const list = heading.nextElementSibling;
+    if (!list || list.tagName !== "OL") return;
+    const items = [...list.children];
+    if (items.length < 3 || items.length > 6) return;
+    if (items.some((item) => item.querySelector("ul, ol") || item.textContent.trim().length > 80)) return;
+    list.classList.add("citrus-process-flow");
+  });
+}
+
+function decorateCitrusCardLists(root) {
+  const configurations = [
+    {
+      headingPattern: /(商品カテゴリ|サービスカテゴリ|取扱商品|商品構成|サービス構成)/,
+      className: "citrus-category-grid",
+      itemClassName: "citrus-category-card",
+      minItems: 2,
+      maxItems: 6,
+      maxLength: 110,
+    },
+    {
+      headingPattern: /(強み|特徴|選ばれる理由|競争力)/,
+      className: "citrus-feature-grid",
+      itemClassName: "citrus-feature-card",
+      minItems: 2,
+      maxItems: 4,
+      maxLength: 130,
+    },
+  ];
+
+  root.querySelectorAll("h2, h3, h4").forEach((heading) => {
+    const configuration = configurations.find(({ headingPattern }) => headingPattern.test(heading.textContent.trim()));
+    if (!configuration) return;
+
+    const list = heading.nextElementSibling;
+    if (!list || !["UL", "OL"].includes(list.tagName)) return;
+    const items = [...list.children];
+    if (items.length < configuration.minItems || items.length > configuration.maxItems) return;
+    if (items.some((item) => item.querySelector("ul, ol") || item.textContent.trim().length > configuration.maxLength)) return;
+    if (items.some((item) => item.firstElementChild?.tagName !== "STRONG")) return;
+    if (items.some((item) => item.textContent.trim().length <= item.firstElementChild.textContent.trim().length + 1)) return;
+
+    list.classList.add(configuration.className);
+    items.forEach((item, itemIndex) => {
+      item.classList.add(configuration.itemClassName, `citrus-tone-${(itemIndex % 4) + 1}`);
+      const title = item.firstElementChild;
+      title.classList.add("citrus-card-title");
+      const description = document.createElement("span");
+      description.className = "citrus-card-description";
+      while (title.nextSibling) {
+        description.append(title.nextSibling);
+      }
+      if (description.firstChild?.nodeType === Node.TEXT_NODE) {
+        description.firstChild.nodeValue = description.firstChild.nodeValue.replace(/^\s*[：:]\s*/, "");
+      }
+      item.append(description);
+    });
+  });
+}
+
+function decorateCitrusInitiativeTables(root) {
+  const headingPattern = /(最近の取り組み|取り組み|施策|プロジェクト|実施事項)/;
+  root.querySelectorAll("table").forEach((table) => {
+    if (!headingPattern.test(nearestHeadingText(table))) return;
+
+    const headers = [...table.querySelectorAll("thead th")].map((cell) => cell.textContent.trim());
+    const rows = [...table.querySelectorAll("tbody tr")];
+    if (headers.length < 2 || headers.length > 4 || rows.length < 2 || rows.length > 6) return;
+
+    const nameIndex = headers.findIndex((header) => /(取り組み|施策|プロジェクト|名称|項目)/.test(header));
+    const contentIndex = headers.findIndex((header) => /(内容|概要|目的)/.test(header));
+    const statusIndex = headers.findIndex((header) => /(状況|ステータス|進捗)/.test(header));
+    if (nameIndex < 0 || contentIndex < 0 || statusIndex < 0) return;
+
+    table.classList.add("citrus-initiative-list");
+    rows.forEach((row) => {
+      row.classList.add("citrus-initiative-card");
+      [...row.cells].forEach((cell, cellIndex) => {
+        cell.dataset.label = headers[cellIndex] || "";
+        if (cellIndex === nameIndex) cell.classList.add("citrus-initiative-name");
+        if (cellIndex === contentIndex) cell.classList.add("citrus-initiative-content");
+        if (cellIndex !== statusIndex) return;
+
+        const status = cell.textContent.trim();
+        const statusClass = [
+          ["citrus-status-progress", /進行中/],
+          ["citrus-status-active", /実施中/],
+          ["citrus-status-strengthen", /強化中/],
+          ["citrus-status-preparing", /準備中/],
+        ].find(([, pattern]) => pattern.test(status))?.[0] || "citrus-status-default";
+        cell.classList.add("citrus-initiative-status", statusClass);
+      });
+    });
+  });
+}
+
+function decorateCitrusHeroImage(root) {
+  const cover = root.querySelector(":scope > .doc-cover");
+  if (!cover) return;
+  const content = [...root.children].filter((element) => element !== cover);
+  const firstSectionIndex = content.findIndex((element) => element.tagName === "H2");
+  const candidates = content.slice(0, firstSectionIndex < 0 ? 4 : Math.min(firstSectionIndex, 4));
+  const figure = candidates.find((element) => element.tagName === "FIGURE");
+  if (!figure) return;
+
+  cover.classList.add("citrus-has-hero");
+  figure.classList.add("citrus-hero-figure");
+  cover.append(figure);
+}
+
+function enhanceCitrusPunchContent(root) {
+  decorateCitrusHeadings(root);
+  decorateCitrusKpiTables(root);
+  decorateCitrusProcessLists(root);
+  decorateCitrusCardLists(root);
+  decorateCitrusInitiativeTables(root);
+  decorateCitrusHeroImage(root);
+}
+
 function updatePrintPageMargins() {
   let style = document.querySelector("#printPageMargins");
 
@@ -516,6 +685,9 @@ function updatePreview() {
   state.meta = parsed.meta;
   state.blocks = parsed.blocks;
   renderBlocks(state.meta, state.blocks);
+  if (theme.id === "citrus-punch") {
+    enhanceCitrusPunchContent(elements.preview);
+  }
 }
 
 function sanitizePdfTitle(rawTitle) {

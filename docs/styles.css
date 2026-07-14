@@ -249,6 +249,14 @@ button.primary:hover {
     inset 0 1px 0 rgba(255, 255, 255, 0.36);
 }
 
+html[data-ui-theme="citrus-punch"] button.primary {
+  background: linear-gradient(180deg, var(--ui-primary-strong), #8F3400);
+}
+
+html[data-ui-theme="citrus-punch"] button.primary:hover {
+  background: #8F3400;
+}
+
 .file-button input {
   position: absolute;
   width: 1px;
@@ -455,6 +463,39 @@ textarea::placeholder {
   --paper-padding-bottom: 54px;
   font-family: "Yu Gothic", "Meiryo", "BIZ UDPGothic", system-ui, sans-serif;
   background: var(--teal-bg);
+  border-top: 0;
+}
+
+.theme-citrus-punch {
+  --citrus-primary: #F05A00;
+  --citrus-primary-dark: #B84200;
+  --citrus-secondary: #E6B800;
+  --citrus-support: #149A3A;
+  --citrus-emphasis: #D9362B;
+  --citrus-surface: #F4E7C8;
+  --citrus-bg: #FFFFFF;
+  --citrus-text: #222222;
+  --citrus-text-sub: #555555;
+  --citrus-divider: #E7DED2;
+  --citrus-radius: 8px;
+  --doc-accent: var(--citrus-primary);
+  --doc-accent-dark: var(--citrus-primary-dark);
+  --doc-text: var(--citrus-text);
+  --doc-muted: var(--citrus-text-sub);
+  --doc-line: var(--citrus-divider);
+  --doc-soft: var(--citrus-surface);
+  --doc-code: #2D2A26;
+  --doc-table-head: var(--citrus-surface);
+  --doc-table-stripe: #FCF9F1;
+  --doc-size: 14px;
+  --doc-leading: 1.7;
+  --section-gap: 22px;
+  --paper-padding-top: 50px;
+  --paper-padding-inline: 54px;
+  --paper-padding-bottom: 54px;
+  font-family: "Yu Gothic", "Meiryo", "BIZ UDPGothic", system-ui, sans-serif;
+  color: var(--citrus-text);
+  background: var(--citrus-bg);
   border-top: 0;
 }
 
@@ -1280,6 +1321,380 @@ textarea::placeholder {
   content: " | 01";
 }
 
+.theme-citrus-punch .doc-cover {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 32px;
+  padding: 34px 36px 30px;
+  border: 1px solid var(--citrus-divider);
+  border-left: 8px solid var(--citrus-primary);
+  border-radius: var(--citrus-radius);
+  background: #FFFFFF;
+  break-inside: avoid;
+}
+
+.theme-citrus-punch .doc-cover::after {
+  content: "";
+  position: absolute;
+  left: 36px;
+  bottom: 0;
+  width: 72px;
+  height: 4px;
+  background: var(--citrus-secondary);
+}
+
+.theme-citrus-punch .doc-cover h1 {
+  max-width: 92%;
+  padding-left: 0;
+  border-left: 0;
+  color: var(--citrus-text);
+  font-size: clamp(27px, 3.4vw, 32px);
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.theme-citrus-punch .doc-cover p {
+  max-width: 90%;
+  margin-top: 14px;
+  color: var(--citrus-text-sub);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.theme-citrus-punch .doc-meta {
+  margin-top: 18px;
+  padding-top: 10px;
+  border-top: 1px solid var(--citrus-divider);
+  color: var(--citrus-text-sub);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.theme-citrus-punch h1 {
+  margin: 30px 0 16px;
+  padding-left: 14px;
+  border-left: 6px solid var(--citrus-primary);
+  color: var(--citrus-text);
+  font-size: 26px;
+  line-height: 1.3;
+  font-weight: 800;
+}
+
+.theme-citrus-punch h2 {
+  position: relative;
+  margin: 30px 0 14px;
+  padding: 0 0 9px;
+  border-bottom: 3px solid var(--citrus-surface);
+  color: var(--citrus-primary-dark);
+  font-size: 22px;
+  line-height: 1.35;
+  font-weight: 800;
+  break-after: avoid;
+}
+
+.theme-citrus-punch h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 68px;
+  height: 3px;
+  background: var(--citrus-secondary);
+}
+
+.theme-citrus-punch h3 {
+  position: relative;
+  margin: 22px 0 10px;
+  padding-left: 13px;
+  color: var(--citrus-text);
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 800;
+  break-after: avoid;
+}
+
+.theme-citrus-punch h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.18em;
+  width: 4px;
+  height: 1.05em;
+  border-radius: 2px;
+  background: var(--citrus-support);
+}
+
+.theme-citrus-punch h4 {
+  margin: 18px 0 8px;
+  color: var(--citrus-text);
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 800;
+  break-after: avoid;
+}
+
+.theme-citrus-punch p {
+  margin-bottom: 12px;
+  color: var(--citrus-text);
+}
+
+.theme-citrus-punch strong {
+  color: var(--citrus-primary-dark);
+  font-weight: 800;
+}
+
+.theme-citrus-punch em {
+  color: var(--citrus-text-sub);
+}
+
+.theme-citrus-punch a {
+  color: var(--citrus-primary-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--citrus-primary);
+  text-underline-offset: 2px;
+}
+
+.theme-citrus-punch a:hover {
+  color: #8F3400;
+}
+
+.theme-citrus-punch code {
+  border: 1px solid var(--citrus-divider);
+  background: #FCF9F1;
+  color: var(--citrus-primary-dark);
+}
+
+.theme-citrus-punch pre {
+  position: relative;
+  margin: 18px 0 20px;
+  padding: 34px 16px 16px;
+  border: 1px solid #3D3934;
+  border-radius: var(--citrus-radius);
+  background: #2D2A26;
+  color: #FFFFFF;
+  box-shadow: none;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.theme-citrus-punch pre::before {
+  content: attr(data-label);
+  position: absolute;
+  left: 16px;
+  top: 10px;
+  color: var(--citrus-secondary);
+  font-family: "Consolas", "Menlo", monospace;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.theme-citrus-punch pre code {
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.theme-citrus-punch blockquote.callout {
+  position: relative;
+  margin: 18px 0 20px;
+  padding: 28px 18px 16px 20px;
+  border: 1px solid var(--citrus-divider);
+  border-left: 5px solid var(--citrus-primary);
+  border-radius: var(--citrus-radius);
+  background: var(--citrus-surface);
+  color: var(--citrus-text);
+  box-shadow: none;
+  break-inside: avoid;
+}
+
+.theme-citrus-punch blockquote.callout::before {
+  content: attr(data-label);
+  position: absolute;
+  left: 20px;
+  top: 9px;
+  color: var(--citrus-primary-dark);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.theme-citrus-punch blockquote.callout-warning,
+.theme-citrus-punch blockquote.callout-risk {
+  border-left-color: var(--citrus-emphasis);
+}
+
+.theme-citrus-punch blockquote.callout-warning::before,
+.theme-citrus-punch blockquote.callout-risk::before {
+  color: var(--citrus-emphasis);
+}
+
+.theme-citrus-punch blockquote.callout-action {
+  border-left-color: var(--citrus-support);
+}
+
+.theme-citrus-punch blockquote.callout-action::before {
+  color: var(--citrus-support);
+}
+
+.theme-citrus-punch ul,
+.theme-citrus-punch ol {
+  margin: 8px 0 16px;
+  padding-left: 24px;
+}
+
+.theme-citrus-punch li {
+  margin: 6px 0;
+  padding-left: 1px;
+}
+
+.theme-citrus-punch ul li::marker,
+.theme-citrus-punch ol li::marker {
+  color: var(--citrus-primary);
+  font-weight: 800;
+}
+
+.theme-citrus-punch ol.steps-list {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: step;
+}
+
+.theme-citrus-punch ol.steps-list > li {
+  counter-increment: step;
+  position: relative;
+  margin: 8px 0;
+  min-height: 42px;
+  padding: 10px 12px 10px 50px;
+  border: 1px solid var(--citrus-divider);
+  border-radius: var(--citrus-radius);
+  background: #FFFFFF;
+  break-inside: avoid;
+}
+
+.theme-citrus-punch ol.steps-list > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 10px;
+  top: 6px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background: var(--citrus-primary);
+  color: #FFFFFF;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.theme-citrus-punch .task-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.theme-citrus-punch .task-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 7px 0;
+  padding: 8px 10px;
+  border: 1px solid var(--citrus-divider);
+  border-radius: var(--citrus-radius);
+  background: #FCF9F1;
+}
+
+.theme-citrus-punch .task-box {
+  border-color: var(--citrus-support);
+  border-radius: 3px;
+}
+
+.theme-citrus-punch .task-box.is-checked {
+  background: var(--citrus-support);
+}
+
+.theme-citrus-punch .action-list {
+  padding: 12px 16px 12px 30px;
+  border: 1px solid var(--citrus-divider);
+  border-left: 5px solid var(--citrus-support);
+  border-radius: var(--citrus-radius);
+  background: #FCF9F1;
+}
+
+.theme-citrus-punch table {
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  margin: 16px 0 22px;
+  border: 1px solid var(--citrus-divider);
+  border-radius: var(--citrus-radius);
+  background: #FFFFFF;
+  font-size: 1em;
+  box-shadow: none;
+}
+
+.theme-citrus-punch table.table-wide {
+  font-size: 0.86em;
+}
+
+.theme-citrus-punch th,
+.theme-citrus-punch td {
+  border-width: 0 1px 1px 0;
+  border-color: var(--citrus-divider);
+  padding: 10px 12px;
+  overflow-wrap: anywhere;
+}
+
+.theme-citrus-punch th {
+  background: var(--citrus-surface);
+  color: var(--citrus-text);
+  font-weight: 800;
+}
+
+.theme-citrus-punch td:first-child {
+  border-left: 3px solid var(--citrus-primary);
+  color: var(--citrus-text);
+  font-weight: 700;
+}
+
+.theme-citrus-punch tbody tr:nth-child(even) {
+  background: #FCF9F1;
+}
+
+.theme-citrus-punch .numeric-cell {
+  color: var(--citrus-primary-dark);
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 800;
+}
+
+.theme-citrus-punch hr {
+  height: 1px;
+  margin: 28px 0;
+  border: 0;
+  background: var(--citrus-divider);
+}
+
+.theme-citrus-punch img {
+  border: 1px solid var(--citrus-divider);
+  border-radius: var(--citrus-radius);
+}
+
+.theme-citrus-punch figcaption {
+  color: var(--citrus-text-sub);
+  font-size: 11px;
+}
+
+.theme-citrus-punch .doc-footer {
+  justify-content: space-between;
+  margin-top: 44px;
+  padding-top: 10px;
+  border-top: 1px solid var(--citrus-divider);
+  color: var(--citrus-text-sub);
+  font-size: 10px;
+}
+
 @media (max-width: 860px) {
   .app-header {
     height: auto;
@@ -1365,6 +1780,24 @@ textarea::placeholder {
   .theme-teal-gray .doc-cover p {
     max-width: none;
   }
+
+  .theme-citrus-punch .doc-cover {
+    margin: 0 0 24px;
+    padding: 28px 22px 26px;
+  }
+
+  .theme-citrus-punch .doc-cover::after {
+    left: 22px;
+  }
+
+  .theme-citrus-punch .doc-cover h1 {
+    max-width: none;
+    font-size: 27px;
+  }
+
+  .theme-citrus-punch .doc-cover p {
+    max-width: none;
+  }
 }
 
 @page {
@@ -1425,6 +1858,22 @@ textarea::placeholder {
     -webkit-print-color-adjust: exact;
   }
 
+  .theme-citrus-punch {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  html[data-ui-theme="citrus-punch"] .preview-pane {
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .theme-citrus-punch .doc-cover {
+    margin: 0 0 10mm;
+  }
+
   .doc-footer {
     margin-top: 12mm;
     padding-top: 4mm;
@@ -1441,7 +1890,13 @@ textarea::placeholder {
   .theme-teal-gray pre,
   .theme-teal-gray table,
   .theme-teal-gray .task-list li,
-  .theme-teal-gray ol.steps-list > li {
+  .theme-teal-gray ol.steps-list > li,
+  .theme-citrus-punch h2,
+  .theme-citrus-punch blockquote.callout,
+  .theme-citrus-punch pre,
+  .theme-citrus-punch table,
+  .theme-citrus-punch .task-list li,
+  .theme-citrus-punch ol.steps-list > li {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }

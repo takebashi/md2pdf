@@ -42,6 +42,36 @@ const themes = [
     },
     pdfClassName: "theme-teal-gray",
   },
+  {
+    id: "citrus-punch",
+    label: "Citrus Punch",
+    description: "野菜・果物を感じる、力強くPOPなBtoC向けテーマ",
+    enabled: true,
+    ui: {
+      primary: "#F05A00",
+      primaryStrong: "#B84200",
+      accent: "#E6B800",
+      background: `
+        radial-gradient(circle at 16% 10%, rgba(240, 90, 0, 0.10), transparent 32%),
+        radial-gradient(circle at 86% 16%, rgba(230, 184, 0, 0.10), transparent 34%),
+        linear-gradient(135deg, #ffffff 0%, #f8f0dc 100%)
+      `,
+      shadowTint: "rgba(150, 82, 22, 0.15)",
+      focusRing: "rgba(240, 90, 0, 0.24)",
+    },
+    palette: {
+      primary: "#F05A00",
+      secondary: "#E6B800",
+      support: "#149A3A",
+      emphasis: "#D9362B",
+      softSurface: "#F4E7C8",
+      background: "#FFFFFF",
+      mainText: "#222222",
+      subText: "#555555",
+      divider: "#E7DED2",
+    },
+    pdfClassName: "theme-citrus-punch",
+  },
 ];
 
 const availableThemes = themes.filter((theme) => theme.enabled);
